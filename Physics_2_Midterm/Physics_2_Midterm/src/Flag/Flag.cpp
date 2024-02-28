@@ -74,17 +74,19 @@ Flag::Flag()
 
 Flag::~Flag()
 {
-	/*while (mListOfSticks.size() != 0)
+	while (mListOfSticks.size() != 0)
 	{
 		delete mListOfSticks[0];
-	}*/
+		mListOfSticks.erase(mListOfSticks.begin());
+	}
 
 	mListOfSticks.clear();
 
-	/*while (mListOfNodes.size() != 0)
+	while (mListOfNodes.size() != 0)
 	{
 		delete mListOfNodes[0];
-	}*/
+		mListOfNodes.erase(mListOfNodes.begin());
+	}
 
 	mListOfNodes.clear();
 
