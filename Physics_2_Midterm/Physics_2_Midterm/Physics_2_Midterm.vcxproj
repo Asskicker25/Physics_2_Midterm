@@ -148,6 +148,7 @@
     <ClCompile Include="Dependencies\include\imgui\imgui_tables.cpp" />
     <ClCompile Include="Dependencies\include\imgui\imgui_widgets.cpp" />
     <ClCompile Include="Dependencies\include\imgui\ImSequencer.cpp" />
+    <ClCompile Include="src\Flag\Flag.cpp" />
     <ClCompile Include="src\Scene\Scene_One.cpp" />
     <ClCompile Include="src\PhysicsApplication.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Dependencies\include\imgui\imstb_textedit.h" />
     <ClInclude Include="Dependencies\include\imgui\imstb_truetype.h" />
     <ClInclude Include="Dependencies\include\imgui\ImZoomSlider.h" />
+    <ClInclude Include="src\Flag\Flag.h" />
     <ClInclude Include="src\Scene\Scene_One.h" />
     <ClInclude Include="src\AppSettings.h" />
     <ClInclude Include="src\PhysicsApplication.h" />
