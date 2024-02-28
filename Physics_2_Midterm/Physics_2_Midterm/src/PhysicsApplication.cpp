@@ -10,7 +10,7 @@ void PhysicsApplication::SetUp()
 
 
 	viewportCamera->InitializeCamera(PERSPECTIVE, windowWidth, windowHeight, 0.1f, 500.0f, 45.0f);
-	viewportCamera->transform.SetPosition(glm::vec3(15.65, 10, 96));
+	viewportCamera->transform.SetPosition(glm::vec3(23.10, 19.35, 96));
 	viewportCamera->transform.SetRotation(glm::vec3(-2, 90, 0));
 	viewportCamera->applyPostProcessing = true;
 

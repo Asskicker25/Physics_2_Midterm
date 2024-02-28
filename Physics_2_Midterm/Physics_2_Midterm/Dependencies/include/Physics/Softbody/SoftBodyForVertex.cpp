@@ -142,7 +142,11 @@ namespace Verlet
 		{
 			if (node->mIsLocked) continue;
 
-			node->velocity = mGravity;
+
+			if (ShouldApplyGravity(node))
+			{
+				node->velocity = mGravity;
+			}
 
 			/*if (node->velocity.x > mNodeMaxVelocity.x) { node->velocity.x = mNodeMaxVelocity.x; }
 			if (node->velocity.y > mNodeMaxVelocity.y) { node->velocity.y = mNodeMaxVelocity.y; }
@@ -217,7 +221,7 @@ namespace Verlet
 		UpdatModelVertices();
 		UpdateModelNormals();
 	}
-	
+
 	void SoftBodyForVertex::UpdateBufferData()
 	{
 		for (MeshAndMaterial* mesh : meshes)
@@ -232,10 +236,10 @@ namespace Verlet
 
 		for (Node* node : mListOfNodes)
 		{
-			node->mPointerToVertices[0].mPointerToVertex->positions = 
+			node->mPointerToVertices[0].mPointerToVertex->positions =
 				glm::inverse(transform.GetTransformMatrix()) * glm::vec4(node->mCurrentPosition, 1.0f);
 		}
-		
+
 		LeaveCriticalSection(mCriticalSection);
 
 	}
@@ -282,7 +286,7 @@ namespace Verlet
 			}
 		}
 
-	
+
 		//EnterCriticalSection(mCriticalSection);
 
 		for (PointerToVertex& vertex : mListOfVertices)
@@ -306,6 +310,19 @@ namespace Verlet
 		}
 
 		return false;
+	}
+
+	bool SoftBodyForVertex::ShouldApplyGravity(Node* node)
+	{
+		for (Node* noGravNode : mListOfNonGravityNodes)
+		{
+			if (node == noGravNode)
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 

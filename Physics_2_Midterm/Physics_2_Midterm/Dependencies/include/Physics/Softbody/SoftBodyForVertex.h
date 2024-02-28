@@ -35,9 +35,12 @@ namespace Verlet
 		void UpdateModelData(float deltaTime);
 		void UpdateBufferData() override;
 		
+		bool IsNodeLocked(Node* node);
+
 		float mLockAffectDisatance = 0.0f;
 
 		CRITICAL_SECTION* mCriticalSection;
+
 
 
 	private:
@@ -51,7 +54,7 @@ namespace Verlet
 		void UpdatModelVertices();
 		void UpdateModelNormals();
 
-		bool IsNodeLocked(Node* node);
+		bool ShouldApplyGravity(Node* node);
 
 		const glm::vec4 lockNodeColor = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
 
@@ -60,6 +63,9 @@ namespace Verlet
 		std::vector<LockNode> mListOfLockNodes;				//Position Offset from center that calculates which nodes to lock based on radius
 		
 		std::vector<Node*> mListOfLockedNodes;
+
+protected:
+		std::vector<Node*> mListOfNonGravityNodes;
 
 	};
 

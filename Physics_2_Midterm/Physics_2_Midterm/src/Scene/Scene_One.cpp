@@ -12,7 +12,7 @@ void Scene_One::Start()
 	GameCamera* mainCamera = new GameCamera();
 	mainCamera->name = "MainCamera";
 	mainCamera->InitializeCamera(PERSPECTIVE, GAME_RESOLUTION_WIDTH, GAME_RESOLUTION_HEIGHT, 0.1f, 500.0f, 45.0f);
-	mainCamera->transform.SetPosition(glm::vec3(15.65f, 10.3f, 96.43f));
+	mainCamera->transform.SetPosition(glm::vec3(20.0f, 20.3f, 96.43f));
 	mainCamera->transform.SetRotation(glm::vec3(-2.0f, 90.0f, 0.0f));
 	/*mainCamera->applyPostProcessing = true;
 	mainCamera->postProcessing->bloom.isEnabled = true;

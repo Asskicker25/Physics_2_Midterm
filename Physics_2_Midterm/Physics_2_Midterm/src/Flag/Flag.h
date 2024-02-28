@@ -1,9 +1,10 @@
 #pragma once
 #include <Physics/Softbody/SoftBodyForVertex.h>
+#include <Graphics/InputManager/InputManager.h>
 
 using namespace Verlet;
 
-class Flag : public SoftBodyForVertex
+class Flag : public SoftBodyForVertex, public iInputListener
 {
 public:
 
@@ -11,9 +12,39 @@ public:
 	~Flag();
 
 	virtual void Start();
-	virtual void Update(float deltaTime);
 	virtual void OnPropertyDraw();
 
+	virtual void OnKeyPressed(const int& key);
+	virtual void Update(float deltaTime);
+	virtual void Render();
+
+private:
+
+	void AddWindForce();
+	void ReduceWindForce();
+	void InitFlapNodes();
+	void HandleFlap(float deltaTime);
+	void AddForceToFlapNodes();
+
+	Model* mPole = nullptr;
+
 	float mColumnWidth = 175;
+
+	float mWindIncreaseSpeed = 5.0f;
+	float mCurrentWindForce = 0.0f;
+	float mMaxWindForce = -30.0f;
+	float mMinWindForce = -0.5f;
+
+	float mFlapTimeStep = 0;
+	float mFlapChangeInterval = 0;
+
+	float mSinValue = 0;
+
+	glm::vec2 mFlapRange = glm::vec2(3,6);
+	glm::vec2 mFlapChangeIntervalRange = glm::vec2(0.5,2);
+	glm::vec3 mFlapNodesForce = glm::vec3(0);
+
+	std::vector<LockNode> mListOFlapNodesSpheres;
+
 };
 
