@@ -61,6 +61,8 @@ void PhysicsApplication::Shutdown()
 		DeleteCriticalSection(&physicsThread->softBodyUpdateModelData);
 	}
 
+	delete physicsThread;
+
 	delete sceneOne;
 }
 

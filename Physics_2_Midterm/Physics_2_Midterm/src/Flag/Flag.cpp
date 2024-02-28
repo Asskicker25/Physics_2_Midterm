@@ -252,13 +252,15 @@ void Flag::RandomBulletHole()
 
 	}
 
-	/*for (Node* node : mListOfBulletHoleNode)
+	for (Node* node : mListOfBulletHoleNode)
 	{
 		for (Stick* stick : node->mListOfConnectedSticks)
 		{
 			DisconnectStick(stick);
 		}
-	}*/
+
+		RemoveIndices(node);
+	}
 
 }
 
@@ -276,5 +278,38 @@ void Flag::Reset()
 	meshes[0]->mesh->indices = localMeshData.indices;
 	mGravity = glm::vec3(0.5, -5, -0.5f);
 	InitializeSoftBody();
+}
+
+void Flag::RemoveIndices(Node* node)
+{
+	std::vector<unsigned int> indicesToRemove;
+
+	for (MeshAndMaterial* mesh : meshes)
+	{
+		std::vector<unsigned int >& indicesArray = mesh->mesh->indices;
+
+		for (PointerToIndex& index : node->mListOfIndexes)
+		{
+			int i = 0;
+			for (unsigned int& indexAtArray : indicesArray)
+			{
+				
+				if (&indexAtArray == index.mPointerToIndex)
+				{
+					indicesToRemove.push_back(i);
+				}
+
+				i++;
+			}
+		} 
+
+		for (int i = 0; i < indicesToRemove.size(); i++)
+		{
+			indicesArray.erase(indicesArray.begin() + (indicesToRemove[i] - indexRemovedCount));
+			indexRemovedCount++;
+		}
+	}
+
+	
 }
 

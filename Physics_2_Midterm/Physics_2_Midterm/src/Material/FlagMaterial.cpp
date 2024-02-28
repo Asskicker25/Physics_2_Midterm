@@ -11,15 +11,15 @@ void FlagMaterial::UpdateMaterial(Shader* shader)
 	mFlag->flagShader->SetUniform1f("holeRadius", mFlag->mBulletHoleRadius);
 	
 
-	int i = 0;
-	for (Flag::Node* node : mFlag->mListOfBulletHoleNode)
-	{
-		std::string str = std::to_string(i);
+	//int i = 0;
+	//for (Flag::Node* node : mFlag->mListOfBulletHoleNode)
+	//{
+	//	std::string str = std::to_string(i);
 
-		mFlag->flagShader->SetUniform3f("holeNodes[" + str + "].position",
-			node->mCurrentPosition.x, node->mCurrentPosition.y, node->mCurrentPosition.z);
-		i++;
-	}
+	//	mFlag->flagShader->SetUniform3f("holeNodes[" + str + "].position",
+	//		node->mCurrentPosition.x, node->mCurrentPosition.y, node->mCurrentPosition.z);
+	//	i++;
+	//}
 
 	mFlag->flagShader->Unbind();
 

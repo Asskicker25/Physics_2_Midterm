@@ -36,10 +36,12 @@ private:
 	void RandomBulletHole();
 	void DisconnectFromPole();
 	void Reset();
+	void RemoveIndices(Node* node);
 
 	Model* mPole = nullptr;
 	Mesh localMeshData;
 
+	unsigned int indexRemovedCount = 0;
 
 	float mColumnWidth = 175;
 
