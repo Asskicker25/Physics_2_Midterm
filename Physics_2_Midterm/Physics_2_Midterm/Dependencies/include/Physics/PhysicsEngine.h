@@ -43,6 +43,9 @@ public:
 	void UpdateSoftBodies(float deltaTime, CRITICAL_SECTION& criticalSection);
 	void UpdateSoftBodyBufferData();
 	void SetDebugSpheres(Model* model, int count);
+
+
+	void Shutdown();
 };
 
 

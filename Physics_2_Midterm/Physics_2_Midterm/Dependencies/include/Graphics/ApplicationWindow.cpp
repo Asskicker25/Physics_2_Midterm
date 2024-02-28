@@ -191,13 +191,13 @@ void ApplicationWindow::EngineUpdate()
 	MoveCameraKeyBoard(window);
 	ProcessInput(window);
 
-	Scene::SceneManager::GetInstance().Update();
 
 	if (applicationPlay)
 	{
 		EntityManager::GetInstance().Update(Timer::GetInstance().deltaTime);
 		InputManager::GetInstance().Update();
 		ParticleSystemManager::GetInstance().Update(Timer::GetInstance().deltaTime);
+		Scene::SceneManager::GetInstance().Update();
 	}
 
 	Update();

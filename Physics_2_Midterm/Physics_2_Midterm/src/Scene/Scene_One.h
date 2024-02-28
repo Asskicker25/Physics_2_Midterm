@@ -20,8 +20,17 @@ public:
 
 
 private:
-	Flag* flag = nullptr;
+	Flag* mFlag = nullptr;
+	GameCamera* mMainCamera = nullptr;
 
 	ApplicationWindow* mWindow = nullptr;
+
+	glm::vec3 mCameraInitPos = glm::vec3(-15.5f, 19.0f, 96.43f);
+	glm::vec3 mCameraFinalPos = glm::vec3(34.1f, 20.0f,96.43f);
+
+	bool mLerpDone = false;
+
+	float mTimeStep = 0;
+	float mCameraLerpSpeed = 0.2f;
 };
 

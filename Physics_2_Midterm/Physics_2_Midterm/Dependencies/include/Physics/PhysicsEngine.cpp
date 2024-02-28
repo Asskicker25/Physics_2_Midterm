@@ -100,6 +100,14 @@ void PhysicsEngine::SetDebugSpheres(Model* model, int count)
 	}
 }
 
+void PhysicsEngine::Shutdown()
+{
+	while (listOfSoftBodies.size() != 0)
+	{
+		delete listOfSoftBodies[0];
+	}
+}
+
 void PhysicsEngine::UpdatePhysics(float deltaTime)
 {
 
