@@ -35,6 +35,8 @@ public:
 		unsigned int* mPointerToIndex = nullptr;
 	};
 
+	struct Stick;
+
 	struct Node
 	{
 
@@ -92,8 +94,9 @@ public:
 		glm::vec3 velocity = glm::vec3(0);
 
 		std::vector<PointerToVertex> mPointerToVertices;
-
+		std::vector<Stick*> mListOfConnectedSticks;
 	};
+
 
 	struct Stick
 	{
@@ -103,6 +106,9 @@ public:
 			mNodeB = nodeB;
 
 			mRestLength = glm::distance(nodeA->mCurrentPosition, nodeB->mCurrentPosition);
+
+			nodeA->mListOfConnectedSticks.push_back(this);
+			nodeB->mListOfConnectedSticks.push_back(this);
 		};
 
 		bool isConnected = true;
@@ -111,6 +117,8 @@ public:
 		Node* mNodeA = nullptr;
 		Node* mNodeB = nullptr;
 	};
+
+	
 
 	struct MeshHolder
 	{
@@ -131,6 +139,8 @@ public:
 
 	virtual void AddCollidersToCheck(PhysicsObject* phyObj);
 	virtual void SetNodeRadius(int index, float radius);
+
+	virtual void DisconnectStick(Stick* stick);
 
 	bool showDebugModels = true;
 	glm::vec3 mGravity = glm::vec3(0);

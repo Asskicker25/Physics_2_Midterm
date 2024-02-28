@@ -356,4 +356,20 @@ namespace Verlet
 		mListOfNodes[index]->velocity = velocity;
 	}
 
+	void SoftBodyForVertex::DisconnectRandomStick()
+	{
+		Stick* stick = mListOfSticks[MathUtils::GetRandomIntNumber(0, mListOfSticks.size())];
+		DisconnectStick(stick);
+	}
+
+	void SoftBodyForVertex::DisconnectRandomNode()
+	{
+		Node* node = mListOfNodes[MathUtils::GetRandomIntNumber(0, mListOfNodes.size())];
+		
+		for (Stick* stick : node->mListOfConnectedSticks)
+		{
+			DisconnectStick(stick);
+		}
+	}
+
 }

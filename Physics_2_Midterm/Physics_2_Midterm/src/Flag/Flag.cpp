@@ -7,6 +7,29 @@
 
 using namespace MathUtilities;
 
+void Flag::OnPropertyDraw()
+{
+	SoftBodyForVertex::OnPropertyDraw();
+
+	if (!ImGui::TreeNodeEx("Flag", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		return;
+	}
+
+	ImGuiUtils::DrawFloat("MaxWind", mMaxWindForce);
+	ImGuiUtils::DrawFloat("WindIncreaseSpeed", mWindIncreaseSpeed);
+	ImGuiUtils::DrawFloat("SinValue", mSinValue);
+	ImGuiUtils::DrawVector2ImGui("FlapRange", mFlapRange, 0, mColumnWidth);
+	ImGuiUtils::DrawVector2ImGui("FlapInterval", mFlapChangeIntervalRange, 0, mColumnWidth);
+	ImGuiUtils::DrawVector3ImGui("Gravity", mGravity, 0, mColumnWidth);
+	ImGuiUtils::DrawVector3ImGui("FlapForce", mFlapNodesForce, 0, mColumnWidth);
+
+	ImGui::TreePop();
+}
+
+
+
+
 Flag::Flag()
 {
 	name = "Flag";
@@ -77,6 +100,10 @@ void Flag::OnKeyPressed(const int& key)
 	{
 		ReduceWindForce();
 	}
+	else if (key == GLFW_KEY_SPACE)
+	{
+		RandomBulletHole();
+	}
 }
 
 void Flag::Update(float deltaTime)
@@ -90,7 +117,13 @@ void Flag::Render()
 
 	//if (!showDebugModels) return;
 
-	Renderer::GetInstance().DrawSphere(transform.position + glm::vec3(0, 6, -10.5f), 0.4f, glm::vec4(1, 0, 0, 1));
+	//Renderer::GetInstance().DrawSphere(transform.position + maxFlagPos, 0.4f, glm::vec4(1, 0, 0, 1));
+
+	//for (glm::vec3& pos : mListOfBulletHolePos)
+	//{
+	//	
+	//	Renderer::GetInstance().DrawSphere(pos, mBulletHoleRadius, glm::vec4(1, 0, 0, 1));
+	//}
 
 }
 
@@ -169,24 +202,29 @@ void Flag::InitFlapNodes()
 }
 
 
-void Flag::OnPropertyDraw()
+void Flag::RandomBulletHole()
 {
-	SoftBodyForVertex::OnPropertyDraw();
+	Node* randomNode = mListOfNodes[MathUtils::GetRandomIntNumber(0, mListOfNodes.size() - 1)];
 
-	if (!ImGui::TreeNodeEx("Flag", ImGuiTreeNodeFlags_DefaultOpen))
+	for (Node* node : mListOfNodes)
 	{
-		return;
+		glm::vec3 diff = node->mCurrentPosition - randomNode->mCurrentPosition;
+
+		float sqDist = glm::dot(diff, diff);
+
+		if (sqDist > mBulletHoleRadius * mBulletHoleRadius) continue;
+
+		mListOfBulletHoleNode.push_back(node);
+
 	}
 
-	ImGuiUtils::DrawFloat("MaxWind", mMaxWindForce);
-	ImGuiUtils::DrawFloat("WindIncreaseSpeed", mWindIncreaseSpeed);
-	ImGuiUtils::DrawFloat("SinValue", mSinValue);
-	ImGuiUtils::DrawVector2ImGui("FlapRange", mFlapRange, 0, mColumnWidth);
-	ImGuiUtils::DrawVector2ImGui("FlapInterval", mFlapChangeIntervalRange, 0, mColumnWidth);
-	ImGuiUtils::DrawVector3ImGui("Gravity", mGravity, 0, mColumnWidth);
-	ImGuiUtils::DrawVector3ImGui("FlapForce", mFlapNodesForce, 0, mColumnWidth);
+	for (Node* node : mListOfBulletHoleNode)
+	{
+		for (Stick* stick : node->mListOfConnectedSticks)
+		{
+			DisconnectStick(stick);
+		}
+	}
 
-	ImGui::TreePop();
 }
-
 

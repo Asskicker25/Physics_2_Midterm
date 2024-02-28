@@ -31,6 +31,9 @@ namespace Verlet
 
 		void AddForceToRandomNode(glm::vec3 velocity);
 
+		void DisconnectRandomStick();
+		void DisconnectRandomNode();
+
 		void AddLockNode(glm::vec3 posOffset, float radius);
 		void UpdateModelData(float deltaTime);
 		void UpdateBufferData() override;

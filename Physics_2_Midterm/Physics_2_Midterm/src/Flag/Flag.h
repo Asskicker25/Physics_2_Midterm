@@ -25,6 +25,7 @@ private:
 	void InitFlapNodes();
 	void HandleFlap(float deltaTime);
 	void AddForceToFlapNodes();
+	void RandomBulletHole();
 
 	Model* mPole = nullptr;
 
@@ -39,12 +40,17 @@ private:
 	float mFlapChangeInterval = 0;
 
 	float mSinValue = 0;
+	float mBulletHoleRadius = 0.4f;
 
 	glm::vec2 mFlapRange = glm::vec2(3,6);
 	glm::vec2 mFlapChangeIntervalRange = glm::vec2(0.5,2);
 	glm::vec3 mFlapNodesForce = glm::vec3(0);
 
+	glm::vec3 minFlagPos = glm::vec3(0, 0, 0);
+	glm::vec3 maxFlagPos = glm::vec3(0, 6, -10.5f);
+
 	std::vector<LockNode> mListOFlapNodesSpheres;
+	std::vector<Node*> mListOfBulletHoleNode;
 
 };
 
