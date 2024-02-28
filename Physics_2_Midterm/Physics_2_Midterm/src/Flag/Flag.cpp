@@ -2,8 +2,10 @@
 #include <Graphics/Debugger.h>
 #include <Graphics/MathUtils.h>
 
-#include "Flag.h"
 #include <Graphics/Timer.h>
+#include "Flag.h"
+#include "../Material/FlagMaterial.h"
+#include "../Shader/FlagShader.h"
 
 using namespace MathUtilities;
 
@@ -16,6 +18,7 @@ void Flag::OnPropertyDraw()
 		return;
 	}
 
+	ImGuiUtils::DrawFloat("HoleRadius", mBulletHoleRadius);
 	ImGuiUtils::DrawFloat("MaxWind", mMaxWindForce);
 	ImGuiUtils::DrawFloat("WindIncreaseSpeed", mWindIncreaseSpeed);
 	ImGuiUtils::DrawFloat("SinValue", mSinValue);
@@ -32,6 +35,9 @@ void Flag::OnPropertyDraw()
 
 Flag::Flag()
 {
+	LoadShader();
+	LoadPole();
+
 	name = "Flag";
 	mGravity = glm::vec3(0.5, -5, -0.5f);
 	//mGravity = glm::vec3(0.0, 0, 00.0f);
@@ -39,15 +45,14 @@ Flag::Flag()
 	mTightness = 0.5f;
 	showDebugModels = false;
 
-	mPole = new Model("Assets/Model/Pole.fbx");
-	mPole->name = "Pole";
-	mPole->transform.SetPosition(glm::vec3(4.24f, 0, 101.23f));
-	mPole->transform.SetRotation(glm::vec3(-90.0f, 90, 0));
-	mPole->transform.SetScale(glm::vec3(0.1f));
-	mPole->meshes[0]->material->AsMaterial()->specularValue = 1;
-
 	LoadModel("Assets/Model/Flag.ply");
-	meshes[0]->material->AsMaterial()->diffuseTexture = new Texture("Assets/Model/SpaceMarine.png");
+	shader = flagShader;
+	meshes[0]->material = new FlagMaterial();
+	FlagMaterial* mat = (FlagMaterial*)meshes[0]->material;
+	mat->diffuseTexture = new Texture("Assets/Model/SpaceMarine.png");
+	mat->alphaMask = new Texture("Assets/Model/SpaceMarine_Alpha.png");
+	mat->useMaskTexture = true;
+	mat->SetFlag(this);
 
 	localMeshData = *meshes[0]->mesh;
 
@@ -62,25 +67,27 @@ Flag::Flag()
 	AddLockNode(glm::vec3(0, 6.0f, 0.0f), 0.4f);
 
 
-	/*LoadModel("Assets/Model/Plane.ply");
-
-	transform.SetPosition(glm::vec3(3.7f, 10.0f, 97.0f));
-	transform.SetRotation(glm::vec3(0.0f, 0.0f, 90.0f));
-	transform.SetScale(glm::vec3(10.0f, 1.0f, 20.0f));*/
-
-	/*AddLockNode(glm::vec3(0,1.5f,3.0f), 0.4f);
-	AddLockNode(glm::vec3(0,0.75f,3.0f), 0.4f);
-	AddLockNode(glm::vec3(0,0,3.0f), 0.4f);
-	AddLockNode(glm::vec3(0,-1.5f,3.0f), 0.4f);
-	AddLockNode(glm::vec3(0, -0.75f, 3.0f), 0.4f);*/
-
 	InputManager::GetInstance().AddListener(this);
+
+
 }
 
 Flag::~Flag()
 {
-	mListOfNodes.clear();
+	/*while (mListOfSticks.size() != 0)
+	{
+		delete mListOfSticks[0];
+	}*/
+
 	mListOfSticks.clear();
+
+	/*while (mListOfNodes.size() != 0)
+	{
+		delete mListOfNodes[0];
+	}*/
+
+	mListOfNodes.clear();
+
 }
 
 void Flag::Start()
@@ -134,6 +141,23 @@ void Flag::Render()
 	//	
 	//	Renderer::GetInstance().DrawSphere(pos, mBulletHoleRadius, glm::vec4(1, 0, 0, 1));
 	//}
+
+}
+
+void Flag::LoadShader()
+{
+	flagShader = new FlagShader();
+	flagShader->LoadShader("res/Shader/FlagShader.shader", Shader::ALPHA_CUTOUT);
+}
+
+void Flag::LoadPole()
+{
+	mPole = new Model("Assets/Model/Pole.fbx");
+	mPole->name = "Pole";
+	mPole->transform.SetPosition(glm::vec3(4.24f, 0, 101.23f));
+	mPole->transform.SetRotation(glm::vec3(-90.0f, 90, 0));
+	mPole->transform.SetScale(glm::vec3(0.1f));
+	mPole->meshes[0]->material->AsMaterial()->specularValue = 1;
 
 }
 
@@ -228,13 +252,13 @@ void Flag::RandomBulletHole()
 
 	}
 
-	for (Node* node : mListOfBulletHoleNode)
+	/*for (Node* node : mListOfBulletHoleNode)
 	{
 		for (Stick* stick : node->mListOfConnectedSticks)
 		{
 			DisconnectStick(stick);
 		}
-	}
+	}*/
 
 }
 

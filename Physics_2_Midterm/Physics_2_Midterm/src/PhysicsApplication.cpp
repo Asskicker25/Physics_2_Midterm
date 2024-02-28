@@ -2,7 +2,6 @@
 #include <Graphics/Panels/EditorLayout.h>
 
 #include "PhysicsApplication.h"
-#include "Scene/Scene_One.h"
 
 void PhysicsApplication::SetUp()
 {
@@ -19,7 +18,7 @@ void PhysicsApplication::SetUp()
 	PhysicsEngine::GetInstance().gravity.y = -9.8f / 3.0f;
 	PhysicsEngine::GetInstance().fixedStepTime = 0.01f;
 
-	Scene_One* sceneOne = new Scene_One(this);
+	sceneOne = new Scene_One(this);
 
 	SceneManager::GetInstance().AddScene("SceneOne", sceneOne);
 	SceneManager::GetInstance().ChangeScene("SceneOne");
@@ -61,6 +60,8 @@ void PhysicsApplication::Shutdown()
 		CloseHandle(physicsThread->threadHandle);
 		DeleteCriticalSection(&physicsThread->softBodyUpdateModelData);
 	}
+
+	delete sceneOne;
 }
 
 void PhysicsApplication::ProcessInput(GLFWwindow* window)

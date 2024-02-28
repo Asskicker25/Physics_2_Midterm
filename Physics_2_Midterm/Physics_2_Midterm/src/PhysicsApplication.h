@@ -3,6 +3,8 @@
 #include <Graphics/ApplicationWindow.h>
 #include <Physics/Thread/PhysicsEngineThreadInfo.h>
 
+#include "Scene/Scene_One.h"
+
 
 class PhysicsApplication : public ApplicationWindow
 {
@@ -20,5 +22,7 @@ private:
 
 
 	PhysicsEngineThreadInfo* physicsThread = nullptr;
+
+	Scene_One* sceneOne = nullptr;
 };
 

@@ -23,8 +23,8 @@ uniform mat4 inverseModel;
 void main()
 {
 	gl_Position = projection * view * model * vec4(position, 1);
-	TexCoord = vec2(texCoord.x * textureTiling.x, 1.0 - texCoord.y * textureTiling.y);
-
+	TexCoord = vec2(texCoord.x * textureTiling.x, texCoord.y * textureTiling.y);
+	
 	vec4 worlNormal = inverseModel * vec4(normal, 1.0f);
 	Normal = normalize(worlNormal.xyz);
 	//Normal = normal;
@@ -60,6 +60,11 @@ struct Light
 	vec4 param2;							// x = 0 for off, 1 for on
 };
 
+struct Node
+{
+	vec3 position;
+};
+
 out vec4 color;
 
 in vec2 TexCoord;
@@ -74,14 +79,19 @@ const int SPOT_LIGHT_TYPE = 1;
 const int DIRECTIONAL_LIGHT_TYPE = 2;
 
 const int NUMBEROFLIGHTS = 10;
+const int NUMBEROFNODES = 100;
 
 uniform Light[NUMBEROFLIGHTS] lights;
+uniform Node[NUMBEROFNODES] holeNodes;
+uniform int numOfNodes;
+uniform float holeRadius;
 
 //uniform vec3 ambient_Specular;
 //uniform vec3 lightColor;
 //uniform vec3 lightPos;
 
 uniform vec3 viewPos;
+
 
 //OPAQUE = 1,
 //ALPHA_BLEND = 2,
@@ -99,19 +109,23 @@ vec4 CalcPointLight(Light light, vec4 texColor, vec4 ambientColor, vec3 normal, 
 vec4 CalcSpotLight(Light light, vec4 texColor, vec4 ambientColor, vec3 normal, vec3 fragPos, vec3 viewDir);
 
 vec4 CalculateLightContrib(vec3 normal, vec3 fragPos, vec3 viewDir );
-
+bool IsNodeHole(vec3 currentFragPos);
 
 void main()
 {
 	//color = mix(texture(texture_diffuse1, TexCoord), texture(overlayTex, TexCoord), 0f);
+
+	if(IsNodeHole(FragPos))
+	{
+		discard;
+	}
+
 	vec3 normalizedNormal = normalize(Normal.xyz);
 	vec3 viewDir = normalize(viewPos - FragPos);
 	
 	vec4 result = CalculateLightContrib(normalizedNormal,FragPos,viewDir);
 	
     //color = vec4(specular, 1.0);
-	
-	
 	
 	
 	//color = vec4(diffuseColor.w);
@@ -128,10 +142,31 @@ void main()
 		}
 	}
 	
-	
 	color = result;
 	
 };
+
+bool IsNodeHole(vec3 currentFragPos)
+{
+	if(numOfNodes == 0) 
+	{
+		return false;
+	}
+
+	for(int i = 0; i < numOfNodes; i++)
+	{
+		vec3 diff = currentFragPos - holeNodes[i].position;
+		float sqDist = dot(diff,diff);
+
+
+		if(sqDist <= holeRadius)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
 
 
 vec4 CalculateLightContrib(vec3 normal, vec3 fragPos, vec3 viewDir )

@@ -1,6 +1,10 @@
 #include "Scene_One.h"
 #include "../AppSettings.h"
-#include "../Flag/Flag.h"
+
+Scene_One::~Scene_One()
+{
+	delete flag;
+}
 
 Scene_One::Scene_One(ApplicationWindow* window)
 {
@@ -31,7 +35,7 @@ void Scene_One::Start()
 	terrain->meshes[0]->material->AsMaterial()->diffuseTexture = new Texture("Assets/Model/TerrainTex.jpg");
 	terrain->meshes[0]->material->AsMaterial()->textureTiling = glm::vec2(10, 10);
 
-	Flag* flag = new Flag();
+	flag = new Flag();
 }
 
 void Scene_One::Update()

@@ -86,6 +86,12 @@ public:
 			mOldPositionm = mCurrentPosition;
 		}
 
+		~Node()
+		{
+			mListOfConnectedSticks.clear();
+			mPointerToVertices.clear();
+		}
+
 		bool mIsLocked = false;
 		float mRadius = 0;
 
@@ -110,6 +116,12 @@ public:
 			nodeA->mListOfConnectedSticks.push_back(this);
 			nodeB->mListOfConnectedSticks.push_back(this);
 		};
+
+		~Stick()
+		{
+			mNodeA = nullptr;
+			mNodeB = nullptr;
+		}
 
 		bool isConnected = true;
 		float mRestLength = 0;

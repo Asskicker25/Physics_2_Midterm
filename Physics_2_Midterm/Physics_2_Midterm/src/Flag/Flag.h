@@ -1,6 +1,7 @@
 #pragma once
 #include <Physics/Softbody/SoftBodyForVertex.h>
 #include <Graphics/InputManager/InputManager.h>
+#include "../Shader/FlagShader.h"
 
 using namespace Verlet;
 
@@ -18,8 +19,15 @@ public:
 	virtual void Update(float deltaTime);
 	virtual void Render();
 
+	float mBulletHoleRadius = 0.1f;
+
+	FlagShader* flagShader = nullptr;
+	std::vector<Node*> mListOfBulletHoleNode;
+
 private:
 
+	void LoadShader();
+	void LoadPole();
 	void AddWindForce();
 	void ReduceWindForce();
 	void InitFlapNodes();
@@ -32,6 +40,7 @@ private:
 	Model* mPole = nullptr;
 	Mesh localMeshData;
 
+
 	float mColumnWidth = 175;
 
 	float mWindIncreaseSpeed = 5.0f;
@@ -43,7 +52,6 @@ private:
 	float mFlapChangeInterval = 0;
 
 	float mSinValue = 0;
-	float mBulletHoleRadius = 0.4f;
 
 	glm::vec2 mFlapRange = glm::vec2(3,6);
 	glm::vec2 mFlapChangeIntervalRange = glm::vec2(0.5,2);
@@ -53,7 +61,6 @@ private:
 	glm::vec3 maxFlagPos = glm::vec3(0, 6, -10.5f);
 
 	std::vector<LockNode> mListOFlapNodesSpheres;
-	std::vector<Node*> mListOfBulletHoleNode;
 
 };
 
