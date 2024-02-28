@@ -287,29 +287,17 @@ void Flag::RemoveIndices(Node* node)
 	for (MeshAndMaterial* mesh : meshes)
 	{
 		std::vector<unsigned int >& indicesArray = mesh->mesh->indices;
+		std::vector<Vertex >& vertexArray = mesh->mesh->vertices;
 
-		for (PointerToIndex& index : node->mListOfIndexes)
+		for (unsigned int& index : node->mListOfIndexes)
 		{
-			int i = 0;
-			for (unsigned int& indexAtArray : indicesArray)
-			{
-				
-				if (&indexAtArray == index.mPointerToIndex)
-				{
-					indicesToRemove.push_back(i);
-				}
+			vertexArray.erase(vertexArray.begin() + (indicesArray[index] - indexRemovedCount));
+			indicesArray.erase(indicesArray.begin() + (index - indexRemovedCount));
 
-				i++;
-			}
-		} 
-
-		for (int i = 0; i < indicesToRemove.size(); i++)
-		{
-			indicesArray.erase(indicesArray.begin() + (indicesToRemove[i] - indexRemovedCount));
 			indexRemovedCount++;
 		}
+		mesh->mesh->UpdateVertices();
 	}
 
-	
 }
 
