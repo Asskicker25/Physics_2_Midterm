@@ -14,6 +14,7 @@ void FlagMaterial::UpdateMaterial(Shader* shader)
 	int i = 0;
 	for (Flag::Node* node : mFlag->mListOfBulletHoleNode)
 	{
+		if (i > 99) break;
 		std::string str = std::to_string(i);
 
 		mFlag->flagShader->SetUniform3f("holeNodes[" + str + "].position",

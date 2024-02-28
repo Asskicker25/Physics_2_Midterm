@@ -32,6 +32,7 @@ void Scene_One::Start()
 
 	Model* terrain = new Model("Assets/Model/TerrianFinal_UV_XZ.ply");
 	terrain->name = "Terrain";
+	terrain->transform.SetRotation(glm::vec3(0,17,0));
 	terrain->meshes[0]->material->AsMaterial()->diffuseTexture = new Texture("Assets/Model/TerrainTex.jpg");
 	terrain->meshes[0]->material->AsMaterial()->textureTiling = glm::vec2(10, 10);
 

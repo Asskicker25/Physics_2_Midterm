@@ -19,7 +19,7 @@ public:
 	virtual void Update(float deltaTime);
 	virtual void Render();
 
-	float mBulletHoleRadius = 0.1f;
+	float mBulletHoleRadius = 0.2f;
 
 	FlagShader* flagShader = nullptr;
 	std::vector<Node*> mListOfBulletHoleNode;
