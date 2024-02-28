@@ -65,9 +65,9 @@ namespace Verlet
 		std::vector<PointerToIndex> mListOfIndices;
 		std::vector<LockNode> mListOfLockNodes;				//Position Offset from center that calculates which nodes to lock based on radius
 		
-		std::vector<Node*> mListOfLockedNodes;
 
 protected:
+		std::vector<Node*> mListOfLockedNodes;
 		std::vector<Node*> mListOfNonGravityNodes;
 
 	};

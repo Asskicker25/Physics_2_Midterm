@@ -36,6 +36,13 @@ namespace Verlet
 
 	void SoftBodyForVertex::InitializeSoftBody()
 	{
+		mListOfVertices.clear();
+		mListOfIndices.clear();
+		mListOfNodes.clear();
+		mListOfSticks.clear();
+		mListOfCollidersToCheck.clear();
+		mListOfLockedNodes.clear();
+
 		glm::mat4 transformMatrix = transform.GetTransformMatrix();
 		/*glm::mat4 transformMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0))
 			* glm::mat4(transform.quaternionRotation)

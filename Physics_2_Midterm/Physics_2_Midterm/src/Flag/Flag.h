@@ -26,8 +26,11 @@ private:
 	void HandleFlap(float deltaTime);
 	void AddForceToFlapNodes();
 	void RandomBulletHole();
+	void DisconnectFromPole();
+	void Reset();
 
 	Model* mPole = nullptr;
+	Mesh localMeshData;
 
 	float mColumnWidth = 175;
 

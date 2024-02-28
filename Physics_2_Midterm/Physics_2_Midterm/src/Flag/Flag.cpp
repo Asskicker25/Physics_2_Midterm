@@ -49,6 +49,8 @@ Flag::Flag()
 	LoadModel("Assets/Model/Flag.ply");
 	meshes[0]->material->AsMaterial()->diffuseTexture = new Texture("Assets/Model/SpaceMarine.png");
 
+	localMeshData = *meshes[0]->mesh;
+
 	transform.SetPosition(glm::vec3(3.44f, 15.56f, 100.0f));
 	transform.SetRotation(glm::vec3(0.0f, -90.0f, 0.0f));
 	transform.SetScale(glm::vec3(35.0f, 20.0f, 1.0f));
@@ -100,9 +102,17 @@ void Flag::OnKeyPressed(const int& key)
 	{
 		ReduceWindForce();
 	}
-	else if (key == GLFW_KEY_SPACE)
+	else if (key == GLFW_KEY_1)
 	{
 		RandomBulletHole();
+	}
+	else if (key == GLFW_KEY_2)
+	{
+		DisconnectFromPole();
+	}
+	else if (key == GLFW_KEY_3)
+	{
+		Reset();
 	}
 }
 
@@ -226,5 +236,21 @@ void Flag::RandomBulletHole()
 		}
 	}
 
+}
+
+void Flag::DisconnectFromPole()
+{
+	for (Node* node : mListOfLockedNodes)
+	{
+		node->mIsLocked = false;
+	}
+}
+
+void Flag::Reset()
+{
+	meshes[0]->mesh->vertices = localMeshData.vertices;
+	meshes[0]->mesh->indices = localMeshData.indices;
+	mGravity = glm::vec3(0.5, -5, -0.5f);
+	InitializeSoftBody();
 }
 
