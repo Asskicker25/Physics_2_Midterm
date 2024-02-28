@@ -2,6 +2,7 @@
 
 #include "Flag.h"
 
+
 Flag::Flag()
 {
 	name = "Flag";
@@ -22,7 +23,7 @@ Flag::Flag()
 	AddLockNode(glm::vec3(0, 1.5f, 0.0f), 0.4f);
 	//AddLockNode(glm::vec3(0, 2.25f, 0.0f), 0.4f);
 	AddLockNode(glm::vec3(0, 3.0f, 0.0f), 0.4f);
-	
+
 
 	/*LoadModel("Assets/Model/Plane.ply");
 
@@ -44,6 +45,11 @@ Flag::~Flag()
 void Flag::Start()
 {
 	InitializeSoftBody();
+}
+
+
+void Flag::Update(float deltaTime)
+{
 }
 
 void Flag::OnPropertyDraw()

@@ -11,6 +11,7 @@ public:
 	~Flag();
 
 	virtual void Start();
+	virtual void Update(float deltaTime);
 	virtual void OnPropertyDraw();
 
 	float mColumnWidth = 175;
