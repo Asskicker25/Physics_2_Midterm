@@ -24,6 +24,21 @@ void PhysicsApplication::SetUp()
 	SceneManager::GetInstance().AddScene("SceneOne", sceneOne);
 	SceneManager::GetInstance().ChangeScene("SceneOne");
 
+#pragma region Skybox
+
+	skyBox->meshes[0]->material = new SkyBoxMaterial();
+	SkyBoxMaterial* skyboxMat = skyBox->meshes[0]->material->AsSkyBoxMaterial();
+
+	skyboxMat->skyBoxTexture->LoadTexture({
+		"Assets/Textures/Skybox/Right.png",
+		"Assets/Textures/Skybox/Left.png",
+		"Assets/Textures/Skybox/Up.png",
+		"Assets/Textures/Skybox/Down.png",
+		"Assets/Textures/Skybox/Front.png",
+		"Assets/Textures/Skybox/Back.png",
+		});
+
+#pragma endregion
 
 	physicsThread->isRunning = true;
 }

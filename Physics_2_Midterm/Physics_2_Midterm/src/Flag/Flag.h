@@ -11,5 +11,8 @@ public:
 	~Flag();
 
 	virtual void Start();
+	virtual void OnPropertyDraw();
+
+	float mColumnWidth = 175;
 };
 

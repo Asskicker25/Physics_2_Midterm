@@ -142,7 +142,12 @@ namespace Verlet
 		{
 			if (node->mIsLocked) continue;
 
-			node->velocity += mGravity * deltaTime;
+			node->velocity = mGravity;
+
+			/*if (node->velocity.x > mNodeMaxVelocity.x) { node->velocity.x = mNodeMaxVelocity.x; }
+			if (node->velocity.y > mNodeMaxVelocity.y) { node->velocity.y = mNodeMaxVelocity.y; }
+			if (node->velocity.z > mNodeMaxVelocity.z) { node->velocity.z = mNodeMaxVelocity.z; }*/
+
 			//node->mCurrentPosition += node->velocity * deltaTime;
 
 			UpdatePositionByVerlet(node, deltaTime);

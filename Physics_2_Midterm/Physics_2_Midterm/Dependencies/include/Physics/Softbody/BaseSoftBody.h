@@ -140,6 +140,8 @@ public:
 	float mTightness = 1.0f;
 	float mBounceFactor = 1.0f;
 
+	glm::vec3 mNodeMaxVelocity = glm::vec3(10);
+
 	std::vector<PhysicsObject*> mListOfCollidersToCheck;
 
 	std::vector<Node*> mListOfNodes;

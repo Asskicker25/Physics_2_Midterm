@@ -1,11 +1,14 @@
+#include <Graphics/Panels/ImguiDrawUtils.h>
+
 #include "Flag.h"
 
 Flag::Flag()
 {
 	name = "Flag";
-	mGravity.y = -10 * 10;
-	mTightness = 0.5f;
+	mGravity = glm::vec3(0.7, -1, -2);
+	mTightness = 1.0f;
 	showDebugModels = false;
+	mNodeMaxVelocity = glm::vec3(10,-10,-30);
 
 	LoadModel("Assets/Model/Flag.ply");
 	meshes[0]->material->AsMaterial()->diffuseTexture = new Texture("Assets/Model/SpaceMarine.png");
@@ -42,3 +45,18 @@ void Flag::Start()
 {
 	InitializeSoftBody();
 }
+
+void Flag::OnPropertyDraw()
+{
+	SoftBodyForVertex::OnPropertyDraw();
+
+	if (!ImGui::TreeNodeEx("Flag", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		return;
+	}
+
+	ImGuiUtils::DrawVector3ImGui("Gravity", mGravity,0, mColumnWidth);
+	
+	ImGui::TreePop();
+}
+
