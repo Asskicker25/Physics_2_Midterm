@@ -36,6 +36,7 @@ private:
 	void RandomBulletHole();
 	void DisconnectFromPole();
 	void Reset();
+	void MakeNodeInvisible(Node* node);
 
 	Model* mPole = nullptr;
 	Mesh localMeshData;

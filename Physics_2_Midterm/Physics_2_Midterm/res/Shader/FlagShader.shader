@@ -13,6 +13,7 @@ out vec3 Normal;
 out vec3 FragPos;
 out vec4 VertexColor;
 out float Enabled;
+out vec3 Position;
 
 uniform vec3 textureTiling;  //x, y
 
@@ -24,10 +25,10 @@ uniform mat4 inverseModel;
 
 void main()
 {
-	if(enabled == 1)
-	{
-		return;
-	}
+	//if(enabled == 1)
+	//{
+	//	return;
+	//}
 
 	gl_Position = projection * view * model * vec4(position, 1);
 	TexCoord = vec2(texCoord.x * textureTiling.x, texCoord.y * textureTiling.y);
@@ -39,6 +40,7 @@ void main()
 	FragPos = vec3(model * vec4(position, 1.0f));
 	VertexColor = vertexColor;
 	Enabled = enabled;
+	Position = gl_Position.xyz;
 };
 
 
@@ -80,7 +82,9 @@ in vec3 Normal;
 in vec3 FragPos;
 in vec4 VertexColor;
 in float Enabled;
+in vec3 Position;
 
+uniform mat4 view;
 uniform Material material;
 
 const int POINT_LIGHT_TYPE = 0;
@@ -125,7 +129,7 @@ void main()
 	//color = mix(texture(texture_diffuse1, TexCoord), texture(overlayTex, TexCoord), 0f);
 
 	//if(IsNodeHole(FragPos))
-	if(Enabled == 1.0)
+	if(Enabled > 0)
 	{
 		discard;
 	}
@@ -151,8 +155,10 @@ void main()
 			discard;
 		}
 	}
+
 	
 	color = result;
+	
 	
 };
 

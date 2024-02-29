@@ -262,23 +262,7 @@ void Flag::RandomBulletHole()
 			DisconnectStick(stick);
 		}
 
-		for (MeshAndMaterial* mesh : meshes)
-		{
-			for (unsigned int& index : node->mListOfIndexs)
-			{
-				mesh->mesh->vertices[index].enabled = 1;
-
-				/*glm::vec3 pos = mesh->mesh->vertices[index].positions;
-
-				for (Vertex& vert : mesh->mesh->vertices)
-				{
-					if (vert.positions == pos)
-					{
-						vert.enabled = 1;
-					}
-				}*/
-			}
-		}
+		MakeNodeInvisible(node);
 	}
 
 }
@@ -297,5 +281,29 @@ void Flag::Reset()
 	meshes[0]->mesh->indices = localMeshData.indices;
 	mGravity = glm::vec3(0.5, -5, -0.5f);
 	InitializeSoftBody();
+}
+
+void Flag::MakeNodeInvisible(Node* node)
+{
+	for (MeshAndMaterial* mesh : meshes)
+	{
+		for (unsigned int& index : node->mListOfIndexs)
+		{
+			mesh->mesh->vertices[index].enabled = 1;
+
+			/*for (Node* allNode : mListOfNodes)
+			{
+				if (allNode == node) continue;
+
+				for (unsigned int& newIndex : allNode->mListOfIndexs)
+				{
+					if (newIndex == index)
+					{
+						MakeNodeInvisible(node);
+					}
+				}
+			}*/
+		}
+	}
 }
 
