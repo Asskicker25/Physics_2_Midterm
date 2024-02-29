@@ -24,7 +24,7 @@ uniform mat4 inverseModel;
 
 void main()
 {
-	if(enabled == 0)
+	if(enabled == 1)
 	{
 		return;
 	}
@@ -125,7 +125,7 @@ void main()
 	//color = mix(texture(texture_diffuse1, TexCoord), texture(overlayTex, TexCoord), 0f);
 
 	//if(IsNodeHole(FragPos))
-	if(Enabled == 0.0)
+	if(Enabled == 1.0)
 	{
 		discard;
 	}

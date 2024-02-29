@@ -118,8 +118,16 @@ namespace Verlet
 			Node* node3 = mListOfNodes[mListOfIndices[(index3)].mLocalIndex];
 
 			node1->mListOfIndexs.push_back(mListOfIndices[i].mLocalIndex);
+			node1->mListOfIndexs.push_back(mListOfIndices[index2].mLocalIndex);
+			node1->mListOfIndexs.push_back(mListOfIndices[index3].mLocalIndex);
+
+			node2->mListOfIndexs.push_back(mListOfIndices[i].mLocalIndex);
 			node2->mListOfIndexs.push_back(mListOfIndices[index2].mLocalIndex);
 			node2->mListOfIndexs.push_back(mListOfIndices[index3].mLocalIndex);
+
+			node3->mListOfIndexs.push_back(mListOfIndices[i].mLocalIndex);
+			node3->mListOfIndexs.push_back(mListOfIndices[index2].mLocalIndex);
+			node3->mListOfIndexs.push_back(mListOfIndices[index3].mLocalIndex);
 			
 
 			mListOfSticks.push_back(new Stick(node1, node2));

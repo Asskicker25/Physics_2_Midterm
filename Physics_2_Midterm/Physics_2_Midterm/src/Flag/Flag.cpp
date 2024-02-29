@@ -256,7 +256,7 @@ void Flag::RandomBulletHole()
 
 	for (Node* node : mListOfBulletHoleNode)
 	{
-		node->mEnabled = false;
+		//node->mEnabled = false;
 		for (Stick* stick : node->mListOfConnectedSticks)
 		{
 			DisconnectStick(stick);
@@ -266,7 +266,17 @@ void Flag::RandomBulletHole()
 		{
 			for (unsigned int& index : node->mListOfIndexs)
 			{
-				mesh->mesh->vertices[index].enabled = 0;
+				mesh->mesh->vertices[index].enabled = 1;
+
+				/*glm::vec3 pos = mesh->mesh->vertices[index].positions;
+
+				for (Vertex& vert : mesh->mesh->vertices)
+				{
+					if (vert.positions == pos)
+					{
+						vert.enabled = 1;
+					}
+				}*/
 			}
 		}
 	}
