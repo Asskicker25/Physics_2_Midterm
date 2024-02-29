@@ -277,8 +277,15 @@ void Flag::DisconnectFromPole()
 
 void Flag::Reset()
 {
+	mListOfBulletHoleNode.clear();
 	meshes[0]->mesh->vertices = localMeshData.vertices;
 	meshes[0]->mesh->indices = localMeshData.indices;
+
+	/*for (Vertex& vert : meshes[0]->mesh->vertices)
+	{
+		vert.enabled = 0;
+	}*/
+
 	mGravity = glm::vec3(0.5, -5, -0.5f);
 	InitializeSoftBody();
 }
