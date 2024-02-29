@@ -13,7 +13,7 @@ void PhysicsApplication::SetUp()
 	viewportCamera->transform.SetRotation(glm::vec3(-2, 90, 0));
 	viewportCamera->applyPostProcessing = true;
 
-	EditorLayout::GetInstance().SetMaximizeState(false);
+	EditorLayout::GetInstance().SetMaximizeState(true);
 
 	PhysicsEngine::GetInstance().gravity.y = -9.8f / 3.0f;
 	PhysicsEngine::GetInstance().fixedStepTime = 0.01f;

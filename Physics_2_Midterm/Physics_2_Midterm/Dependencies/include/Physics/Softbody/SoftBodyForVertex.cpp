@@ -117,6 +117,11 @@ namespace Verlet
 			Node* node2 = mListOfNodes[mListOfIndices[(index2)].mLocalIndex];
 			Node* node3 = mListOfNodes[mListOfIndices[(index3)].mLocalIndex];
 
+			node1->mListOfIndexs.push_back(mListOfIndices[i].mLocalIndex);
+			node2->mListOfIndexs.push_back(mListOfIndices[index2].mLocalIndex);
+			node2->mListOfIndexs.push_back(mListOfIndices[index3].mLocalIndex);
+			
+
 			mListOfSticks.push_back(new Stick(node1, node2));
 			mListOfSticks.push_back(new Stick(node2, node3));
 			mListOfSticks.push_back(new Stick(node3, node1));
@@ -245,6 +250,7 @@ namespace Verlet
 		{
 			node->mPointerToVertices[0].mPointerToVertex->positions =
 				glm::inverse(transform.GetTransformMatrix()) * glm::vec4(node->mCurrentPosition, 1.0f);
+			//node->mPointerToVertices[0].mPointerToVertex->enabled = node->mEnabled ? 1.0f : 0.0f;
 		}
 
 		LeaveCriticalSection(mCriticalSection);

@@ -5,7 +5,7 @@ using namespace Verlet;
 
 void FlagMaterial::UpdateMaterial(Shader* shader)
 {
-	mFlag->flagShader->Bind();
+	/*mFlag->flagShader->Bind();
 
 	mFlag->flagShader->SetUniform1i("numOfNodes", (int)mFlag->mListOfBulletHoleNode.size());
 	mFlag->flagShader->SetUniform1f("holeRadius", mFlag->mBulletHoleRadius);
@@ -22,7 +22,7 @@ void FlagMaterial::UpdateMaterial(Shader* shader)
 		i++;
 	}
 
-	mFlag->flagShader->Unbind();
+	mFlag->flagShader->Unbind();*/
 
 	Material::UpdateMaterial(shader);
 

@@ -93,6 +93,7 @@ public:
 		}
 
 		bool mIsLocked = false;
+		bool mEnabled = true;
 		float mRadius = 0;
 
 		glm::vec3 mCurrentPosition = glm::vec3(0);
@@ -101,6 +102,7 @@ public:
 
 		std::vector<PointerToVertex> mPointerToVertices;
 		std::vector<Stick*> mListOfConnectedSticks;
+		std::vector<unsigned int> mListOfIndexs;
 	};
 
 

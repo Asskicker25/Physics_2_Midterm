@@ -254,13 +254,22 @@ void Flag::RandomBulletHole()
 
 	}
 
-	/*for (Node* node : mListOfBulletHoleNode)
+	for (Node* node : mListOfBulletHoleNode)
 	{
+		node->mEnabled = false;
 		for (Stick* stick : node->mListOfConnectedSticks)
 		{
 			DisconnectStick(stick);
 		}
-	}*/
+
+		for (MeshAndMaterial* mesh : meshes)
+		{
+			for (unsigned int& index : node->mListOfIndexs)
+			{
+				mesh->mesh->vertices[index].enabled = 0;
+			}
+		}
+	}
 
 }
 
